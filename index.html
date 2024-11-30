@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I Love You</title> <!-- Added custom title here -->
+    <link rel="icon" href="icon.png" type="image/png"> <!-- Added favicon -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000; /* Set background to black */
+            position: relative;
+            user-select: none; /* Prevent text selection */
+        }
+
+        .loading {
+            margin-bottom: 50px; /* Added margin to move the button down */
+        }
+
+        .loading svg {
+            width: 256px; /* Increased size */
+            height: 192px; /* Increased size */
+        }
+
+        .loading svg polyline {
+            fill: none;
+            stroke-width: 6; /* Increased stroke width */
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .loading svg polyline#back {
+            fill: none;
+            stroke: rgba(255, 0, 0, 0.2); /* Changed to red with transparency */
+        }
+
+        .loading svg polyline#front {
+            fill: none;
+            stroke: red; /* Changed to red */
+            stroke-dasharray: 192, 576; /* Adjusted for larger size */
+            stroke-dashoffset: 768; /* Adjusted for larger size */
+            animation: dash_682 1.4s linear infinite;
+        }
+
+        @keyframes dash_682 {
+            72.5% {
+                opacity: 0;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .animated-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 16px 36px;
+            border: 4px solid;
+            border-color: transparent;
+            font-size: 16px;
+            background-color: inherit;
+            border-radius: 100px;
+            font-weight: 600;
+            color: red; /* Changed color to red */
+            box-shadow: 0 0 0 2px red; /* Changed shadow color to red */
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button svg {
+            position: absolute;
+            width: 24px;
+            fill: red; /* Changed fill color to red */
+            z-index: 9;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .arr-1 {
+            right: 16px;
+        }
+
+        .animated-button .arr-2 {
+            left: -25%;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: red; /* Changed background color to red */
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            transform: translateX(-12px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button:hover {
+            box-shadow: 0 0 0 12px transparent;
+            color: #212121;
+            border-radius: 12px;
+        }
+
+        .animated-button:hover .arr-1 {
+            right: -25%;
+        }
+
+        .animated-button:hover .arr-2 {
+            left: 16px;
+        }
+
+        .animated-button:hover .text {
+            transform: translateX(12px);
+        }
+
+        .animated-button:hover svg {
+            fill: #212121;
+        }
+
+        .animated-button:active {
+            scale: 0.95;
+            box-shadow: 0 0 0 4px red; /* Changed shadow color to red */
+        }
+
+        .animated-button:hover .circle {
+            width: 220px;
+            height: 220px;
+            opacity: 1;
+        }
+
+        /* Copyright styling */
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            font-size: 16px; /* Match button text size */
+            font-weight: 600; /* Match button text weight */
+            color: grey; /* Set color to grey */
+            font-family: 'Arial', sans-serif; /* Use the same font as the button */
+        }
+    </style>
+    <script>
+        // Disable right-click context menu
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        // Disable text selection
+        document.addEventListener("selectstart", function (e) {
+            e.preventDefault();
+        });
+
+        // Disable keyboard shortcuts (Ctrl+U, Ctrl+S, etc.)
+        document.onkeydown = function (e) {
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
+                e.preventDefault();
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="loading">
+        <svg width="256px" height="192px">
+            <polyline points="0.314 95.816, 56 95.816, 87.372 192, 172 0, 200 96, 256 96" id="back"></polyline>
+            <polyline points="0.314 95.816, 56 95.816, 87.372 192, 172 0, 200 96, 256 96" id="front"></polyline>
+        </svg>
+    </div>
+    <button class="animated-button" onclick="window.location.href='https://guns.lol/check_on_legit';">
+        <svg class="arr-1" viewBox="0 0 24 24">
+            <path d="M8.59 16.59L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.59Z" />
+        </svg>
+        <svg class="arr-2" viewBox="0 0 24 24">
+            <path d="M8.59 16.59L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.59Z" />
+        </svg>
+        <span class="circle"></span>
+        <span class="text">Access Website</span>
+    </button>
+    <div class="copyright">
+        © 2024 ILoveYou. All rights reserved.
+    </div>
+</body>
+</html>
