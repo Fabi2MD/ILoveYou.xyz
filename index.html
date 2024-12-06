@@ -2,196 +2,301 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>I Love You</title> <!-- Added custom title here -->
-    <link rel="icon" href="icon.png" type="image/png"> <!-- Added favicon -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You</title>
+    <link rel="icon" href="icon.png" type="image/png">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #000; /* Set background to black */
+            background: #000000; /* Black background */
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow: hidden;
             position: relative;
-            user-select: none; /* Prevent text selection */
+            transition: background 0.4s ease;
+            user-select: none; /* Disable text selection */
         }
 
+        /* Pulse Line Animation with rounded edges */
         .loading {
-            margin-bottom: 50px; /* Added margin to move the button down */
+            position: absolute;
+            top: 180px;
+            animation: pulseEffect 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseEffect {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
         }
 
         .loading svg {
-            width: 256px; /* Increased size */
-            height: 192px; /* Increased size */
+            width: 320px;
+            height: 260px;
         }
 
         .loading svg polyline {
             fill: none;
-            stroke-width: 6; /* Increased stroke width */
-            stroke-linecap: round;
-            stroke-linejoin: round;
+            stroke-width: 12;
+            stroke-linecap: round;  /* Rounded start and end points */
+            stroke-linejoin: round; /* Rounded corners */
         }
 
         .loading svg polyline#back {
-            fill: none;
-            stroke: rgba(255, 0, 0, 0.2); /* Changed to red with transparency */
+            stroke: rgba(255, 0, 0, 0.2); /* Light red for background line */
         }
 
         .loading svg polyline#front {
-            fill: none;
-            stroke: red; /* Changed to red */
-            stroke-dasharray: 192, 576; /* Adjusted for larger size */
-            stroke-dashoffset: 768; /* Adjusted for larger size */
-            animation: dash_682 1.4s linear infinite;
+            stroke: #FF0000; /* Pure red for the pulse effect */
+            stroke-dasharray: 200, 600;
+            stroke-dashoffset: 800;
+            animation: dashEffect 2s linear infinite;
         }
 
-        @keyframes dash_682 {
-            72.5% {
-                opacity: 0;
-            }
-
-            to {
+        @keyframes dashEffect {
+            100% {
                 stroke-dashoffset: 0;
             }
         }
 
+        /* Access Website Button */
         .animated-button {
             position: relative;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 16px 36px;
-            border: 4px solid;
-            border-color: transparent;
-            font-size: 16px;
-            background-color: inherit;
-            border-radius: 100px;
-            font-weight: 600;
-            color: red; /* Changed color to red */
-            box-shadow: 0 0 0 2px red; /* Changed shadow color to red */
+            margin-top: 250px;
+            padding: 18px 40px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF0000; /* Red text */
+            background: transparent;
+            border: 3px solid #FF0000; /* Red border */
+            border-radius: 50px;
             cursor: pointer;
+            z-index: 2;
             overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            transition: all 0.5s ease;
+            font-family: 'Poppins', sans-serif;
+            animation: fadeInButton 0.6s ease-out;
         }
 
-        .animated-button svg {
-            position: absolute;
-            width: 24px;
-            fill: red; /* Changed fill color to red */
-            z-index: 9;
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        @keyframes fadeInButton {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .animated-button .arr-1 {
-            right: 16px;
+        .animated-button:hover {
+            background: #FF0000; /* Pure red on hover */
+            color: black;
+            box-shadow: 0 0 30px #FF0000, 0 0 60px rgba(255, 0, 0, 0.6);
+            transform: scale(1.1);
         }
 
-        .animated-button .arr-2 {
-            left: -25%;
-        }
-
-        .animated-button .circle {
+        /* Original Menu with added transparency */
+        .menu-container {
+            display: none;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background-color: red; /* Changed background color to red */
-            border-radius: 50%;
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            width: 500px;
+            padding: 40px 50px;
+            background: rgba(20, 20, 20, 0.6); /* Adjusted transparency here */
+            border: 1px solid rgba(255, 0, 0, 0.2); /* Light red border */
+            backdrop-filter: blur(30px);
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeInMenu 1s ease forwards;
         }
 
-        .animated-button .text {
-            position: relative;
-            z-index: 1;
-            transform: translateX(-12px);
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        @keyframes fadeInMenu {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
         }
 
-        .animated-button:hover {
-            box-shadow: 0 0 0 12px transparent;
-            color: #212121;
-            border-radius: 12px;
+        .menu-container h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #FF0000; /* Red text */
+            margin-bottom: 30px;
+            animation: slideIn 0.6s ease-out;
         }
 
-        .animated-button:hover .arr-1 {
-            right: -25%;
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
-        .animated-button:hover .arr-2 {
-            left: 16px;
+        .menu-container a {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 18px 60px;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            background: #FF0000; /* Pure red for buttons */
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            animation: fadeInLink 0.6s ease-out;
         }
 
-        .animated-button:hover .text {
-            transform: translateX(12px);
+        @keyframes fadeInLink {
+            0% {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        .animated-button:hover svg {
-            fill: #212121;
+        .menu-container a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #FF0000, 0 0 40px rgba(255, 0, 0, 0.8);
         }
 
-        .animated-button:active {
-            scale: 0.95;
-            box-shadow: 0 0 0 4px red; /* Changed shadow color to red */
+        /* Close Menu Button */
+        .close-menu {
+            margin-top: 30px;
+            padding: 18px 60px;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            background: #FF0000; /* Red background */
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            animation: fadeInCloseButton 0.6s ease-out;
+            box-shadow: none; /* Removed box shadow */
         }
 
-        .animated-button:hover .circle {
-            width: 220px;
-            height: 220px;
-            opacity: 1;
+        @keyframes fadeInCloseButton {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Copyright styling */
+        .close-menu:hover {
+            background: #FF3333; /* Slightly lighter red for hover */
+            box-shadow: 0 0 30px #FF3333, 0 0 40px rgba(255, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* Copyright */
         .copyright {
             position: absolute;
             bottom: 20px;
-            font-size: 16px; /* Match button text size */
-            font-weight: 600; /* Match button text weight */
-            color: grey; /* Set color to grey */
-            font-family: 'Arial', sans-serif; /* Use the same font as the button */
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Poppins', sans-serif;
+            animation: fadeInCopyright 0.6s ease-out;
         }
-    </style>
-    <script>
-        // Disable right-click context menu
-        document.addEventListener("contextmenu", function (e) {
-            e.preventDefault();
-        });
 
-        // Disable text selection
-        document.addEventListener("selectstart", function (e) {
-            e.preventDefault();
-        });
-
-        // Disable keyboard shortcuts (Ctrl+U, Ctrl+S, etc.)
-        document.onkeydown = function (e) {
-            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
-                e.preventDefault();
+        @keyframes fadeInCopyright {
+            0% {
+                opacity: 0;
             }
-        };
-    </script>
+            100% {
+                opacity: 1;
+            }
+        }
+
+    </style>
 </head>
 <body>
+    <!-- Animated Line -->
     <div class="loading">
-        <svg width="256px" height="192px">
+        <svg>
+            <!-- Back line with rounded corners -->
             <polyline points="0.314 95.816, 56 95.816, 87.372 192, 172 0, 200 96, 256 96" id="back"></polyline>
+            <!-- Front line with rounded corners -->
             <polyline points="0.314 95.816, 56 95.816, 87.372 192, 172 0, 200 96, 256 96" id="front"></polyline>
         </svg>
     </div>
-    <button class="animated-button" onclick="window.location.href='https://guns.lol/timeout';">
-        <svg class="arr-1" viewBox="0 0 24 24">
-            <path d="M8.59 16.59L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.59Z" />
-        </svg>
-        <svg class="arr-2" viewBox="0 0 24 24">
-            <path d="M8.59 16.59L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.59Z" />
-        </svg>
-        <span class="circle"></span>
-        <span class="text">Access Website</span>
-    </button>
-    <div class="copyright">
-        © 2024 ILoveYou. All rights reserved.
+
+    <!-- Access Website Button -->
+    <button class="animated-button" id="menuButton">Access Website</button>
+
+    <!-- Menu -->
+    <div class="menu-container" id="menu">
+        <h2>Choose Your Destination</h2>
+        <a href="https://inject.bio/minecraft" target="_blank">Inject.bio</a>
+        <a href="https://guns.lol/timeout" target="_blank">Guns.lol</a>
+        <button class="close-menu" id="closeMenu">Close Menu</button>
     </div>
+
+    <!-- Copyright -->
+    <div class="copyright">© 2024 ILoveYou. All rights reserved.</div>
+
+    <script>
+        const menuButton = document.getElementById('menuButton');
+        const menu = document.getElementById('menu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        menuButton.addEventListener('click', () => {
+            menu.style.display = 'block';
+            menuButton.style.display = 'none';
+        });
+
+        closeMenu.addEventListener('click', () => {
+            menu.style.display = 'none';
+            menuButton.style.display = 'block';
+        });
+
+        // Disable right-click (context menu)
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Prevent F12 and Ctrl+Shift+I (Developer tools)
+        window.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
