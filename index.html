@@ -95,7 +95,7 @@
             }
         }
 
-        /* Press Any Key Button */
+        /* Click To Access Button */
         .press-any-key-button {
             padding: 18px 40px;
             font-size: 24px;
@@ -253,8 +253,8 @@
         </svg>
     </div>
 
-    <!-- Press Any Key Button -->
-    <button class="press-any-key-button" id="pressKeyButton">Press any key</button>
+    <!-- Click To Access Button -->
+    <button class="press-any-key-button" id="pressKeyButton">Click To Access</button>
 
     <!-- Menu -->
     <div class="menu-container" id="menu">
@@ -282,13 +282,15 @@
             }
         });
 
-        // Detect any key press to open the menu
-        window.addEventListener('keydown', () => {
+        // Open the menu when the "Click To Access" button is clicked
+        pressKeyButton.addEventListener('click', () => {
             menu.style.display = 'block';
             pressKeyButton.style.display = 'none';
         });
 
-        closeMenuButton.addEventListener('click', () => {
+        // Close menu
+        closeMenuButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevents the event from bubbling up and triggering the click event for opening the menu
             menu.style.display = 'none';
             pressKeyButton.style.display = 'block';
         });
