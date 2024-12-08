@@ -21,75 +21,93 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: #000000; /* Black background */
+            background: #2b0c0c; /* Dark red background */
             font-family: 'Poppins', sans-serif;
             color: white;
             overflow: hidden;
             position: relative;
-            transition: background 0.4s ease;
-            user-select: none; /* Disable text selection */
+            user-select: none;
         }
 
-        /* Pulse Line Animation with rounded edges */
-        .loading {
-            position: absolute;
-            top: 180px;
-            animation: pulseEffect 2.5s ease-in-out infinite;
+        /* Heart SVG with Beating and Blood Pulse Animation */
+        .heart-wrapper {
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: floating 2.5s ease-in-out infinite;
         }
 
-        @keyframes pulseEffect {
-            0%, 100% {
-                opacity: 0.6;
+        .heart-svg {
+            width: 100%;
+            height: 100%;
+            animation: heartbeat 1.5s ease-in-out infinite, bloodPulse 1.2s ease-in-out infinite;
+        }
+
+        /* Beating Heart Animation */
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+                fill: #FF0000;
+            }
+            25% {
+                transform: scale(1.1);
+                fill: #E60000;
             }
             50% {
-                opacity: 1;
+                transform: scale(1.2);
+                fill: #FF0000;
             }
-        }
-
-        .loading svg {
-            width: 320px;
-            height: 260px;
-        }
-
-        .loading svg polyline {
-            fill: none;
-            stroke-width: 12;
-            stroke-linecap: round;  /* Rounded start and end points */
-            stroke-linejoin: round; /* Rounded corners */
-        }
-
-        .loading svg polyline#back {
-            stroke: rgba(255, 0, 0, 0.2); /* Light red for background line */
-        }
-
-        .loading svg polyline#front {
-            stroke: #FF0000; /* Pure red for the pulse effect */
-            stroke-dasharray: 200, 600;
-            stroke-dashoffset: 800;
-            animation: dashEffect 2s linear infinite;
-        }
-
-        @keyframes dashEffect {
+            75% {
+                transform: scale(1.1);
+                fill: #E60000;
+            }
             100% {
-                stroke-dashoffset: 0;
+                transform: scale(1);
+                fill: #FF0000;
             }
         }
 
-        /* Access Website Button */
-        .animated-button {
-            position: relative;
-            margin-top: 250px;
+        /* Blood Pulse Effect on Heart */
+        @keyframes bloodPulse {
+            0%, 100% {
+                transform: scale(1);
+                fill: #FF0000;
+            }
+            50% {
+                transform: scale(1.2);
+                fill: #D40000;
+            }
+        }
+
+        /* Floating Effect to make the heart appear as if it's floating */
+        @keyframes floating {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Press Any Key Button */
+        .press-any-key-button {
             padding: 18px 40px;
             font-size: 24px;
             font-weight: 700;
-            color: #FF0000; /* Red text */
+            color: #FF0000;
             background: transparent;
-            border: 3px solid #FF0000; /* Red border */
+            border: 3px solid #FF0000;
             border-radius: 50px;
             cursor: pointer;
             z-index: 2;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3); /* Reduced glow */
             transition: all 0.5s ease;
             font-family: 'Poppins', sans-serif;
             animation: fadeInButton 0.6s ease-out;
@@ -106,14 +124,14 @@
             }
         }
 
-        .animated-button:hover {
-            background: #FF0000; /* Pure red on hover */
+        .press-any-key-button:hover {
+            background: #FF0000;
             color: black;
-            box-shadow: 0 0 30px #FF0000, 0 0 60px rgba(255, 0, 0, 0.6);
-            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); /* Subtle glow */
+            transform: scale(1.05);
         }
 
-        /* Original Menu with added transparency */
+        /* Menu Styling */
         .menu-container {
             display: none;
             position: absolute;
@@ -122,11 +140,11 @@
             transform: translate(-50%, -50%);
             width: 500px;
             padding: 40px 50px;
-            background: rgba(20, 20, 20, 0.6); /* Adjusted transparency here */
-            border: 1px solid rgba(255, 0, 0, 0.2); /* Light red border */
+            background: rgba(20, 20, 20, 0.85); /* Slightly more transparent */
+            border: 1px solid rgba(255, 0, 0, 0.2);
             backdrop-filter: blur(30px);
             border-radius: 25px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 0, 0, 0.5); /* Softer shadow */
             text-align: center;
             animation: fadeInMenu 1s ease forwards;
         }
@@ -145,20 +163,8 @@
         .menu-container h2 {
             font-size: 32px;
             font-weight: 700;
-            color: #FF0000; /* Red text */
+            color: #FF0000;
             margin-bottom: 30px;
-            animation: slideIn 0.6s ease-out;
-        }
-
-        @keyframes slideIn {
-            0% {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
 
         .menu-container a {
@@ -168,60 +174,38 @@
             font-size: 20px;
             font-weight: 600;
             color: white;
-            background: #FF0000; /* Pure red for buttons */
+            background: transparent;
+            border: 3px solid #FF0000;
             border-radius: 30px;
             text-decoration: none;
             transition: all 0.4s ease;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-            animation: fadeInLink 0.6s ease-out;
-        }
-
-        @keyframes fadeInLink {
-            0% {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Reduced glow */
         }
 
         .menu-container a:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px #FF0000, 0 0 40px rgba(255, 0, 0, 0.8);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #FF0000, 0 0 30px rgba(255, 0, 0, 0.7); /* Soft hover effect */
         }
 
-        /* Close Menu Button */
-        .close-menu {
-            margin-top: 30px;
-            padding: 18px 60px;
-            font-size: 20px;
-            font-weight: 600;
-            color: white;
-            background: #FF0000; /* Red background */
-            border-radius: 30px;
+        /* Close X Button in Menu */
+        .close-menu-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: #FF0000;
+            background: transparent;
+            border: none;
             cursor: pointer;
-            transition: all 0.5s ease;
-            animation: fadeInCloseButton 0.6s ease-out;
-            box-shadow: none; /* Removed box shadow */
+            font-weight: 600;
+            transition: all 0.3s ease;
+            outline: none; /* Remove focus box */
         }
 
-        @keyframes fadeInCloseButton {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .close-menu:hover {
-            background: #FF3333; /* Slightly lighter red for hover */
-            box-shadow: 0 0 30px #FF3333, 0 0 40px rgba(255, 0, 0, 0.8);
-            transform: scale(1.1);
+        .close-menu-button:hover {
+            color: #D40000;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
         /* Copyright */
@@ -232,70 +216,81 @@
             font-weight: 600;
             color: rgba(255, 255, 255, 0.6);
             font-family: 'Poppins', sans-serif;
-            animation: fadeInCopyright 0.6s ease-out;
         }
 
-        @keyframes fadeInCopyright {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+        /* I Love You Text */
+        .love-you-text {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FF0000;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5); /* Reduced glow on text */
+        }
+
+        .subtitle-text {
+            font-size: 18px;
+            font-weight: 400;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px; /* Spacing between subtitle and heart */
         }
 
     </style>
 </head>
 <body>
-    <!-- Animated Line -->
-    <div class="loading">
-        <svg>
-            <!-- Back line with rounded corners -->
-            <polyline points="0.314 95.816, 56 95.816, 87.372 192, 172 0, 200 96, 256 96" id="back"></polyline>
-            <!-- Front line with rounded corners -->
-            <polyline points="0.314 95.816, 56 95.816, 87.372 192, 172 0, 200 96, 256 96" id="front"></polyline>
+    <!-- I Love You Text -->
+    <div class="love-you-text">I Love You</div>
+
+    <!-- New Text Below -->
+    <div class="subtitle-text">
+        "Forever and always, you are my heart."
+    </div>
+
+    <!-- Heart SVG with Beating and Blood Pulse Animation -->
+    <div class="heart-wrapper">
+        <svg class="heart-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 82s30-18 30-38c0-9-7-16-16-16-6 0-11 5-14 11-3-6-8-11-14-11-9 0-16 7-16 16 0 20 30 38 30 38z" fill="#FF0000"/>
         </svg>
     </div>
 
-    <!-- Access Website Button -->
-    <button class="animated-button" id="menuButton">Access Website</button>
+    <!-- Press Any Key Button -->
+    <button class="press-any-key-button" id="pressKeyButton">Press any key</button>
 
     <!-- Menu -->
     <div class="menu-container" id="menu">
+        <button class="close-menu-button" id="closeMenuButton">X</button>
         <h2>Choose Your Destination</h2>
         <a href="https://inject.bio/minecraft" target="_blank">Inject.bio</a>
         <a href="https://guns.lol/timeout" target="_blank">Guns.lol</a>
-        <button class="close-menu" id="closeMenu">Close Menu</button>
+        <a href="https://e-z.bio/Fabi2MD" target="_blank">E-Z Bio</a> <!-- New Button -->
     </div>
 
     <!-- Copyright -->
     <div class="copyright">© 2024 ILoveYou. All rights reserved.</div>
 
     <script>
-        const menuButton = document.getElementById('menuButton');
+        const pressKeyButton = document.getElementById('pressKeyButton');
         const menu = document.getElementById('menu');
-        const closeMenu = document.getElementById('closeMenu');
+        const closeMenuButton = document.getElementById('closeMenuButton');
 
-        menuButton.addEventListener('click', () => {
-            menu.style.display = 'block';
-            menuButton.style.display = 'none';
-        });
-
-        closeMenu.addEventListener('click', () => {
-            menu.style.display = 'none';
-            menuButton.style.display = 'block';
-        });
-
-        // Disable right-click (context menu)
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-        });
-
-        // Prevent F12 and Ctrl+Shift+I (Developer tools)
-        window.addEventListener('keydown', function (e) {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+        // Prevent right-click and console opening
+        window.addEventListener('contextmenu', (e) => e.preventDefault());
+        window.addEventListener('keydown', (e) => {
+            // Block F12, CTRL+SHIFT+I, and other DevTools triggers
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
                 e.preventDefault();
             }
+        });
+
+        // Detect any key press to open the menu
+        window.addEventListener('keydown', () => {
+            menu.style.display = 'block';
+            pressKeyButton.style.display = 'none';
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            menu.style.display = 'none';
+            pressKeyButton.style.display = 'block';
         });
     </script>
 </body>
